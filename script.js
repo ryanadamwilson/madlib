@@ -2,7 +2,7 @@ var nouns = [];
 var adjectives = [];
 var adverbs = [];
 var verbs = [];
-
+console.log('nouns1:',nouns);
 var story;
 
 var backupNouns = ["parent", "car", "zebra", "incense"];
@@ -11,71 +11,96 @@ var backupAdverbs = ["gracefully", "foolishly", "often", "obnoxiously"];
 var backupVerbs = ["burp", "walk", "swing", "scream"];
 
 function generateMadLib() {
+	nouns = [];
+	adjectives = [];
+	adverbs = [];
+	verbs = [];
 	var addNouns = function() {
 		var userNouns = document.getElementById('nouns').value;
 		userNouns = userNouns.split(",");
 		nouns = nouns.concat(userNouns);
+		nouns.shift();
+		console.log('nouns2:',nouns);
 	};
 	var addAdjectives = function() {
 		var userAdjectives = document.getElementById('adjectives').value;
 		userAdjectives = userAdjectives.split(",");
 		adjectives = adjectives.concat(userAdjectives);
+		adjectives.shift();
 	};
 	var addAdverbs = function() {
 		var userAdverbs = document.getElementById('adverbs').value;
 		userAdverbs = userAdverbs.split(",");
 		adverbs = adverbs.concat(userAdverbs);
+		adverbs.shift();
 	};
 	var addVerbs = function() {
 		var userVerbs = document.getElementById('verbs').value;
 		userVerbs = userVerbs.split(",");
 		verbs = verbs.concat(userVerbs);
+		verbs.shift();
 	};
-	function addExtraWords() {
-		if (nouns.length < 4) {
-			while (nouns.length !== 4) {
-				var randomNumber = Math.floor(Math.random() * 4);
-				var newWord = backupNouns[randomNumber];
-				if (nouns.indexOf(newWord) === -1) {
-					nouns.push(newWord);
-				}
-			}
-		}
-		if (adjectives.length < 4) {
-			while (adjectives.length !== 4) {
-				var randomNumber = Math.floor(Math.random() * 4);
-				var newWord = backupAdjectives[randomNumber];
-				if (adjectives.indexOf(newWord) === -1) {
-					adjectives.push(newWord);
-				}
-			}
-		}
-		if (adverbs.length < 4) {
-			while (adverbs.length !== 4) {
-				var randomNumber = Math.floor(Math.random() * 4);
-				var newWord = backupAdverbs[randomNumber];
-				if (adverbs.indexOf(newWord) === -1) {
-					adverbs.push(newWord);
-				}
-			}
-		}
-		if (verbs.length < 4) {
-			while (verbs.length !== 4) {
-				var randomNumber = Math.floor(Math.random() * 4);
-				var newWord = backupVerbs[randomNumber];
-				if (verbs.indexOf(newWord) === -1) {
-					verbs.push(newWord);
-				}
-			}
-		}
-	};
+	removeStory();
+	addNouns();
+	addVerbs();
+	addAdverbs();
+	addAdjectives();
+	addExtraWords();
 	var radios = document.getElementsByName('select-lib');
 	for (var i = 0; i < radios.length; i++) {
 		if (radios[i].checked) {
 			setStory(radios[i].value);
 		}
 	}
-	setStory();
+	createStory();
+	console.log('nouns4:',nouns);
+	nouns = [];
+	verbs = [];
+	adverbs = [];
+	adjectives = [];
+	console.log('nouns4:',nouns);
+};
+function removeStory() {
+
+}
+function addExtraWords() {
+	if (nouns.length < 4) {
+		while (nouns.length !== 4) {
+			var randomNumber = Math.floor(Math.random() * 4);
+			var newWord = backupNouns[randomNumber];
+			if (nouns.indexOf(newWord) === -1) {
+				nouns.push(newWord);
+			}
+		}
+		console.log('nouns3:',nouns);
+	}
+	if (adjectives.length < 4) {
+		while (adjectives.length !== 4) {
+			var randomNumber = Math.floor(Math.random() * 4);
+			var newWord = backupAdjectives[randomNumber];
+			if (adjectives.indexOf(newWord) === -1) {
+				adjectives.push(newWord);
+			}
+		}
+	}
+	if (adverbs.length < 4) {
+		while (adverbs.length !== 4) {
+			var randomNumber = Math.floor(Math.random() * 4);
+			var newWord = backupAdverbs[randomNumber];
+			if (adverbs.indexOf(newWord) === -1) {
+				adverbs.push(newWord);
+			}
+		}
+	}
+	if (verbs.length < 4) {
+		while (verbs.length !== 4) {
+			var randomNumber = Math.floor(Math.random() * 4);
+			var newWord = backupVerbs[randomNumber];
+			if (verbs.indexOf(newWord) === -1) {
+				verbs.push(newWord);
+			}
+		}
+	}
 };
 
 function setStory(radioValue) {
@@ -93,7 +118,7 @@ function setStory(radioValue) {
 	}
 };
 
-var storyWrapper = document.getElementById('story');
-var appendStory = document.createElement('p');
-appendStory.innerHTML = story;
-storyWrapper.appendChild(appendStory);
+function createStory() {
+	var storyWrapper = document.getElementById('story');
+	storyWrapper.innerHTML = story;
+};
